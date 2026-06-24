@@ -123,7 +123,7 @@ function Cart() {
               <Link to="/checkout">
 
 
-                <button>
+                <button className="checkout-btn">
 
                   Checkout
 

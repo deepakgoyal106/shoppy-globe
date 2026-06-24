@@ -27,137 +27,63 @@ function CartItem({ item }) {
 
   return (
 
-    <div className="cart-item">
-
-
-
-      {/* Product image */}
-
-      <img
-
-        className="cart-image"
-
-        src={item.thumbnail}
-
-        alt={item.title}
-
-      />
-
-
-
-
-      {/* Product information */}
-
-      <div>
-
-
-        <h3>
-
-          {item.title}
-
-        </h3>
-
-
-
-        <p>
-
-          Price:
-          ${item.price.toFixed(2)}
-
-        </p>
-
-
-
-        {/* Quantity controls */}
-
-        <div className="quantity-box">
-
-
-          {/* Decrease quantity */}
-
-          <button
-
-            className="qty-btn"
-
-            onClick={()=>{
-
-              dispatch(
-                decreaseQuantity(item.id)
-              );
-
-            }}
-
-          >
-
-            −
-
-          </button>
-
-
-
-
-          {/* Current quantity */}
-
-          <span className="quantity">
-
-            {item.quantity}
-
-          </span>
-
-
-
-
-
-          {/* Increase quantity */}
-
-          <button
-
-            className="qty-btn"
-
-            onClick={()=>{
-
-              dispatch(
-                increaseQuantity(item.id)
-              );
-
-            }}
-
-          >
-
-            +
-
-          </button>
-
-
-
-        </div>
-
-
-
-        {/* Remove item button */}
-
-        <button
-
-          onClick={()=>{
-
-            dispatch(
-              removeFromCart(item.id)
-            );
-
-          }}
-
-        >
-
-          Remove
-
-        </button>
-
-
-
-      </div>
-
+   <div className="cart-item">
+
+  <img
+    className="cart-image"
+    src={item.thumbnail}
+    alt={item.title}
+  />
+
+  <div className="cart-details">
+
+    <h3>{item.title}</h3>
+
+    <p>
+      Price: ${item.price}
+    </p>
+
+    <div className="quantity-box">
+
+      <button
+        className="qty-btn"
+        onClick={()=>
+          dispatch(
+            decreaseQuantity(item.id)
+          )
+        }
+      >
+        -
+      </button>
+
+      <span>{item.quantity}</span>
+
+      <button
+        className="qty-btn"
+        onClick={()=>
+          dispatch(
+            increaseQuantity(item.id)
+          )
+        }
+      >
+        +
+      </button>
 
     </div>
+
+    <button class="remove-btn"
+      onClick={()=>
+        dispatch(
+          removeFromCart(item.id)
+        )
+      }
+    >
+      Remove
+    </button>
+
+  </div>
+
+</div>
 
   );
 

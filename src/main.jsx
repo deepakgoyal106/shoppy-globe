@@ -25,7 +25,7 @@ import {
 
 import store from "./redux/store";
 
-import router from "./router/router";
+import router from "./routes/router";
 
 
 
