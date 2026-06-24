@@ -1,22 +1,50 @@
-import { useEffect, useState } from "react";
+// Product Detail page
+// Shows complete information of selected product
+// Product id comes from route parameter
+
+
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 
-function ProductDetail(){
+function ProductDetail() {
+
+
+  // Get product id from URL
+  // Example: /product/1
 
   const { id } = useParams();
 
 
-  const [product,setProduct] = useState(null);
-  const [loading,setLoading] = useState(true);
-  const [error,setError] = useState("");
 
+  // Store selected product data
+
+  const [product, setProduct] = useState(null);
+
+
+
+  // Store loading state
+
+  const [loading, setLoading] = useState(true);
+
+
+
+  // Store API error
+
+  const [error, setError] = useState("");
+
+
+
+  // Fetch product details when id changes
 
   useEffect(()=>{
 
+
     async function fetchProduct(){
 
-      try{
+
+      try {
+
 
         const response =
         await fetch(
@@ -24,48 +52,74 @@ function ProductDetail(){
         );
 
 
+
         if(!response.ok){
+
           throw new Error(
             "Product not found"
           );
+
         }
+
 
 
         const data =
         await response.json();
 
 
+
         setProduct(data);
 
 
-      }catch(err){
+      }
 
-        setError(err.message);
+
+      catch(err){
+
+        setError(
+          err.message
+        );
 
       }
+
+
       finally{
 
         setLoading(false);
 
       }
 
+
     }
 
 
+
     fetchProduct();
+
 
 
   },[id]);
 
 
 
+
+
+  // Loading UI
+
   if(loading){
-    return <h2>Loading...</h2>
+
+    return <h2>Loading...</h2>;
+
   }
 
 
+
+  // Error UI
+
   if(error){
-    return <h2>{error}</h2>
+
+    return <h2>{error}</h2>;
+
   }
 
 
@@ -74,22 +128,40 @@ function ProductDetail(){
 
     <div className="product-detail">
 
-      <h1>
-        {product.title}
-      </h1>
 
+      {/* Product image */}
 
       <img
-      className="detail-image"
-      loading="lazy"
-      src={product.thumbnail}
-      alt={product.title}
-    />
 
+        className="detail-image"
+
+        src={product.thumbnail}
+
+        alt={product.title}
+
+      />
+
+
+
+      {/* Product title */}
+
+      <h2>
+        {product.title}
+      </h2>
+
+
+
+      {/* Product price */}
 
       <h3>
-        Price: ${product.price}
+
+        ${product.price.toFixed(2)}
+
       </h3>
+
+
+
+      {/* Rating */}
 
       <div className="rating">
 
@@ -104,15 +176,13 @@ function ProductDetail(){
       </div>
 
 
+
+      {/* Product description */}
+
       <p>
         {product.description}
       </p>
 
-
-      <p>
-        Category:
-        {product.category}
-      </p>
 
     </div>
 
