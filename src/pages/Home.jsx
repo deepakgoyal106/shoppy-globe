@@ -1,43 +1,75 @@
-import useProducts from "../hooks/useProducts";
+// Home page
+// Fetches product data using custom hook
+// Displays search bar and product list
+
+
 import ProductList from "../components/ProductList";
 import SearchBar from "../components/SearchBar";
 
 
-function Home(){
-
- const {
-   products,
-   loading,
-   error
- } = useProducts();
+// Custom hook for fetching products
+import useProducts from "../hooks/useProducts";
 
 
-
- if(loading)
- return <h2>Loading...</h2>
+function Home() {
 
 
- if(error)
- return <h2>{error}</h2>
+  // Get products, loading state and error state
+  const {
+    products,
+    loading,
+    error
+  } = useProducts();
 
 
 
- return (
-  <div>
+  // Show loading message while API request is running
+  if(loading){
 
-    <h2>ShoppyGlobe Products</h2>
+    return <h2>Loading products...</h2>;
 
-
-    <SearchBar />
-
-
-    <ProductList
-      products={products}
-    />
+  }
 
 
-  </div>
- );
+
+  // Show error message if API fails
+  if(error){
+
+    return <h2>Something went wrong</h2>;
+
+  }
+
+
+
+  return (
+
+    <div>
+
+
+      {/* Page heading */}
+
+      <h2>
+        ShoppyGlobe Products
+      </h2>
+
+
+
+      {/* Search products using Redux state */}
+
+      <SearchBar />
+
+
+
+      {/* Display all products */}
+
+      <ProductList
+        products={products}
+      />
+
+
+    </div>
+
+  );
 
 }
 
