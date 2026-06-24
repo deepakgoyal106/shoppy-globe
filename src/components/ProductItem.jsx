@@ -118,6 +118,7 @@ function ProductItem({ product }) {
       <Link
         to={`/product/${product.id}`}
       >
+        <br></br>
 
         View Details
 
