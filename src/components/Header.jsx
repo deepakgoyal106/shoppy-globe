@@ -5,7 +5,7 @@
 
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import { FaShoppingCart } from "react-icons/fa";
 
 function Header() {
 
@@ -52,7 +52,7 @@ function Header() {
 
         <Link to="/cart">
 
-         🛒 Cart ({totalItems})
+        <FaShoppingCart />  Cart ({totalItems})
 
         </Link>
 

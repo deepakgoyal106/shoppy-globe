@@ -1,126 +1,116 @@
-// Product Detail page
-// Shows complete information of selected product
-// Product id comes from route parameter
-
-
-import { useParams } from "react-router-dom";
+// Import React hooks
 import { useEffect, useState } from "react";
 
+// Import router hooks
+import { useParams, useNavigate } from "react-router-dom";
 
+// Import Redux hook
+import { useDispatch } from "react-redux";
+
+// Import cart action
+import { addToCart } from "../redux/slices/cartSlice";
+
+
+// Product Detail Component
 function ProductDetail() {
 
 
   // Get product id from URL
-  // Example: /product/1
-
   const { id } = useParams();
 
 
+  // Used for page navigation
+  const navigate = useNavigate();
 
-  // Store selected product data
 
+  // Redux dispatch
+  const dispatch = useDispatch();
+
+
+
+  // Store product data
   const [product, setProduct] = useState(null);
 
 
-
-  // Store loading state
-
+  // Loading state
   const [loading, setLoading] = useState(true);
 
 
-
-  // Store API error
-
+  // Error state
   const [error, setError] = useState("");
 
 
 
-  // Fetch product details when id changes
 
-  useEffect(()=>{
+  // Fetch product details
+  useEffect(() => {
 
 
-    async function fetchProduct(){
-
+    const fetchProduct = async () => {
 
       try {
 
 
-        const response =
-        await fetch(
+        // API call
+        const response = await fetch(
           `https://dummyjson.com/products/${id}`
         );
 
 
 
-        if(!response.ok){
-
-          throw new Error(
-            "Product not found"
-          );
-
+        if (!response.ok) {
+          throw new Error("Product not found");
         }
 
 
 
-        const data =
-        await response.json();
+        const data = await response.json();
 
 
 
+        // Save product
         setProduct(data);
 
 
-      }
+
+      } catch (err) {
 
 
-      catch(err){
-
-        setError(
-          err.message
-        );
-
-      }
+        setError(err.message);
 
 
-      finally{
+      } finally {
+
 
         setLoading(false);
 
       }
 
-
-    }
-
+    };
 
 
     fetchProduct();
 
 
-
-  },[id]);
-
+  }, [id]);
 
 
 
 
-  // Loading UI
 
-  if(loading){
-
-    return <h2>Loading...</h2>;
-
+  // Loading message
+  if (loading) {
+    return <h2>Loading product...</h2>;
   }
 
 
 
-  // Error UI
 
-  if(error){
-
-    return <h2>{error}</h2>;
-
+  // Error message
+  if (error) {
+    return <h2>Error: {error}</h2>;
   }
+
 
 
 
@@ -129,59 +119,93 @@ function ProductDetail() {
     <div className="product-detail">
 
 
-      {/* Product image */}
-
+      {/* Product Image */}
       <img
-
-        className="detail-image"
-
         src={product.thumbnail}
-
         alt={product.title}
-
+        className="detail-image"
       />
 
 
 
-      {/* Product title */}
 
-      <h2>
-        {product.title}
-      </h2>
+      <div className="detail-info">
 
 
-
-      {/* Product price */}
-
-      <h3>
-
-        ${product.price.toFixed(2)}
-
-      </h3>
+        {/* Product Title */}
+        <h1>
+          {product.title}
+        </h1>
 
 
 
-      {/* Rating */}
+        {/* Description */}
+        <p>
+          {product.description}
+        </p>
 
-      <div className="rating">
 
-        {"⭐".repeat(
-          Math.round(product.rating)
-        )}
 
-        <span>
-          ({product.rating})
-        </span>
+        {/* Price */}
+        <h2>
+          Price: ${product.price}
+        </h2>
+
+
+
+
+        <p>
+          <strong>Brand:</strong> {product.brand}
+        </p>
+
+
+
+        <p>
+          <strong>Category:</strong> {product.category}
+        </p>
+
+
+
+
+        <p>
+          <strong>Rating:</strong> ⭐ {product.rating}
+        </p>
+
+
+
+
+        {/* Add To Cart */}
+        <button
+          className="detail-cart-btn"
+
+          onClick={() =>
+            dispatch(
+              addToCart({
+                ...product,
+                quantity: 1
+              })
+            )
+          }
+        >
+
+          Add To Cart
+
+        </button>
+        
+        {/* Back Button */}
+      <button
+        className="back-btn"
+        onClick={() => navigate("/")}
+      >
+
+        ← Back To Product List
+
+      </button>
+
+
 
       </div>
 
-
-
-      {/* Product description */}
-
-      <p>
-        {product.description}
-      </p>
 
 
     </div>
