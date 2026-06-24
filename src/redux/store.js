@@ -1,11 +1,46 @@
-import { configureStore } from '@reduxjs/toolkit';
+// Redux store configuration
+// Combines all application reducers
+// Provides global state to React application
 
-import cartReducer from './slices/cartSlice';
-import searchReducer from './slices/searchSlice';
 
-export default configureStore({
-  reducer: {
+import { configureStore } from "@reduxjs/toolkit";
+
+
+import cartReducer from "./slices/cartSlice";
+
+import searchReducer from "./slices/searchSlice";
+
+
+
+
+// Create Redux store
+
+const store = configureStore({
+
+
+  reducer:{
+
+
+
+    // Cart related state
+
     cart: cartReducer,
-    search: searchReducer 
+
+
+
+    // Search related state
+
+    search: searchReducer
+
+
   }
-})
+
+
+
+});
+
+
+
+
+
+export default store;
