@@ -1,31 +1,76 @@
-import React, { Suspense } from "react";
+// Application entry point
+// Connects React with Redux store and Router
+// Loads global CSS
+
+
+import React from "react";
+
 import ReactDOM from "react-dom/client";
 
-import { RouterProvider } from "react-router-dom";
-import { Provider } from "react-redux";
 
-import router from "./routes/router";
+import {
+
+  Provider
+
+} from "react-redux";
+
+
+import {
+
+  RouterProvider
+
+} from "react-router-dom";
+
+
+
 import store from "./redux/store";
+
+import router from "./router/router";
+
+
+
 import "./styles/app.css";
 
+
+
+
+
+// Render React application
+
 ReactDOM.createRoot(
+
   document.getElementById("root")
-).render(
+
+)
+
+.render(
+
+
 
   <React.StrictMode>
 
+
+    {/* 
+      Provider makes Redux state
+      available to all components
+    */}
+
     <Provider store={store}>
 
-      <Suspense
-        fallback={<h2>Loading...</h2>}
-      >
 
-        <RouterProvider router={router} />
+      {/* 
+        RouterProvider handles
+        all application routes
+      */}
 
-      </Suspense>
+      <RouterProvider router={router}/>
+
 
     </Provider>
 
+
+
   </React.StrictMode>
+
 
 );
