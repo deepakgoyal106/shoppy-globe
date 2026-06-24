@@ -8,7 +8,7 @@ Users can: - Browse products - Search products - View product details -
 Add products to cart - Update quantity - Remove products - Checkout and
 place orders
 
-## Technologies Usedf
+## Technologies Used
 
 -   React JS
 -   Vite
