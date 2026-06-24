@@ -71,7 +71,7 @@ function CartItem({ item }) {
 
     </div>
 
-    <button class="remove-btn"
+    <button className="remove-btn"
       onClick={()=>
         dispatch(
           removeFromCart(item.id)

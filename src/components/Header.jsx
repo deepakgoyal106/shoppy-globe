@@ -52,7 +52,7 @@ function Header() {
 
         <Link to="/cart">
 
-          Cart ({totalItems})
+         🛒 Cart ({totalItems})
 
         </Link>
 
