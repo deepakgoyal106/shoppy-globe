@@ -53,4 +53,4 @@ src/
 
 ## GitHub Repository
 
-(Add your repository link here)
+(https://github.com/deepakgoyal106/shoppy-globe)
